@@ -1,6 +1,6 @@
 import View from "./view.js";
 import { TeamMatcher } from "./teamMatcher.js";
-import { confirmMsg } from "./constants";
+import { confirmMsg } from "./constants.js";
 
 export class App {
     constructor() {
