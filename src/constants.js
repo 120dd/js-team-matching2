@@ -14,6 +14,8 @@ export const SELECTORS = {
     MATCH_TEAM_BUTTON: "match-team-button",
     COURSE_SELECT_DETAIL: "course-select-detail",
     DELETE_CREW_BUTTON: "delete-crew-button",
+    TEAM_MATCHING_DETAIL: "team-matching-detail",
+    REMATCH_BUTTON: "rematch-team-button"
 }
 
 export const COURSE_NAMES_KR = {

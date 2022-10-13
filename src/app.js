@@ -8,6 +8,7 @@ export class App {
         this.view = new View();
         this.teamMatcher = new TeamMatcher();
         this.view.registerCrewManageTabEvent(this.requestAddCrew, this.requestDeleteCrew);
+        this.view.registerTeamManageTabEvent(this.requestMatchTeam);
     }
     
     requestAddCrew = (currentCourse, crewName) => {
@@ -24,6 +25,28 @@ export class App {
         }
         this.teamMatcher.deleteCrew(currentCourse, idx);
         this.view.renderCourseDetailSection();
+    }
+    
+    requestMatchTeam = (courseName, num) => {
+        const targetTeamLength = this.teamMatcher.teamList[ courseName ].length;
+        if (!this.checkinValidMatchNum(targetTeamLength, num)) {
+            return;
+        }
+        const randomTeamList = this.teamMatcher.matchTeam(courseName, num);
+        this.view.renderMatchResult(randomTeamList);
+    }
+    
+    checkinValidMatchNum(targetTeamLength, num) {
+        const maxNum = targetTeamLength / 2
+        if (maxNum < num) {
+            this.view.alert(`매칭 최대값은 ${maxNum}입니다`);
+            return false;
+        }
+        if (num < 1) {
+            this.view.alert(`매칭 최소값은 1입니다`);
+            return false;
+        }
+        return true;
     }
     
     invalidCrewNameCheck(crewName, teamList) {

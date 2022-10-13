@@ -32,13 +32,38 @@ export default class {
         );
     }
     
+    renderTeamMatchingSection() {
+        $(SELECTORS.MAIN).innerHTML = TEMPLATES.MISSION_SELECT_SECTION;
+    }
+    
+    renderTeamMatchingSectionDetail(crewName, missionName) {
+        $(SELECTORS.TEAM_MATCHING_DETAIL).innerHTML = TEMPLATES
+        .TEAM_MATCHING_DETAIL(
+            crewName,
+            missionName,
+            this.teamMatcher.teamList[ $(SELECTORS.COURSE_SELECT).value ]
+        );
+    }
+    
+    renderMatchResult(matchResult) {
+        const courseName = $(SELECTORS.COURSE_SELECT)
+            .options[ $(SELECTORS.COURSE_SELECT).selectedIndex ].text;
+        const missionName = $(SELECTORS.MISSION_SELECT)
+            .options[ $(SELECTORS.MISSION_SELECT).selectedIndex ].text;
+        $(SELECTORS.TEAM_MATCHING_DETAIL).innerHTML = TEMPLATES.MATCH_RESULT_SECTION(
+            courseName,
+            missionName,
+            matchResult,
+        );
+    }
+    
     registerHeaderEvent() {
         $(SELECTORS.APP).addEventListener("click", (e) => {
             if (e.target.id === SELECTORS.CREW_TAB) {
                 this.renderCourseSelectSection();
             }
             if (e.target.id === SELECTORS.TEAM_TAB) {
-                console.log(22);
+                this.renderTeamMatchingSection();
             }
         })
     }
@@ -57,6 +82,23 @@ export default class {
             }
             if (e.target.className === SELECTORS.DELETE_CREW_BUTTON) {
                 deleteCrewFn(COURSE_NAMES_EN[ this.currentCourse ], e.target.dataset.idx);
+            }
+        })
+    }
+    
+    registerTeamManageTabEvent(matchFn) {
+        $(SELECTORS.MAIN).addEventListener("click", (e) => {
+            e.preventDefault();
+            const courseName = $(SELECTORS.COURSE_SELECT)
+                .options[ $(SELECTORS.COURSE_SELECT).selectedIndex ].text;
+            const missionName = $(SELECTORS.MISSION_SELECT)
+                .options[ $(SELECTORS.MISSION_SELECT).selectedIndex ].text;
+            if (e.target.id === SELECTORS.SHOW_TEAM_MATCHER_BUTTON ||
+                e.target.id === SELECTORS.REMATCH_BUTTON) {
+                this.renderTeamMatchingSectionDetail(courseName, missionName);
+            }
+            if (e.target.id === SELECTORS.MATCH_TEAM_BUTTON) {
+                matchFn(COURSE_NAMES_EN[ courseName ], $(SELECTORS.TEAM_MEMBER_COUNT_INPUT).value);
             }
         })
     }
