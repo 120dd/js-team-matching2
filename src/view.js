@@ -61,6 +61,10 @@ export default class {
         })
     }
     
+    alert(msg) {
+        alert(msg);
+    }
+    
     confirm(msg) {
         return confirm(msg);
     }
