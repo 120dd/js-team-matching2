@@ -1,21 +1,25 @@
+import { getLocalStorage, setLocalStorage } from "./store/localStorage.js";
+
 export class TeamMatcher {
     constructor() {
         if (TeamMatcher.instance) {
             return TeamMatcher.instance;
         }
         TeamMatcher.instance = this;
-        this.teamList = {
-            frontend: ["크리스", "준", "포비", "포코", "송이", "소연"],
-            backend: ["밥"]
+        this.teamList = getLocalStorage("teamList") || {
+            frontend: [],
+            backend: []
         }
     }
     
     addCrew(courseName, crewName) {
         this.teamList[ courseName ].push(crewName);
+        setLocalStorage("teamList", this.teamList);
     }
     
     deleteCrew(courseName, idx) {
         this.teamList[ courseName ].splice(idx, 1);
+        setLocalStorage("teamList", this.teamList);
     }
     
     matchTeam(courseName, num) {
