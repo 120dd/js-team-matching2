@@ -25,16 +25,17 @@ export class TeamMatcher {
 	matchTeam(courseName, num) {
 		const targetCourse = this.teamList[courseName];
 		const randomCrew = this.makeRandomIdxList(targetCourse.length).map(v => targetCourse[v]);
-		const teamNum = Math.floor(randomCrew.length / num);
-		const randomCrewList = [];
-		for (let i = 0; i < teamNum; i++) {
-			randomCrewList.push([]);
+		const matchedTeamList = [];
+		let extraIdx = 0;
+		while (randomCrew.length !== 0) {
+			if (randomCrew.length > num) {
+				matchedTeamList.push(randomCrew.splice(0, num));
+			} else {
+				matchedTeamList[extraIdx].push(randomCrew.splice(0, 1));
+				extraIdx += 1;
+			}
 		}
-		randomCrew.forEach((name, idx) => {
-			const newIdx = idx % teamNum;
-			randomCrewList[newIdx].push(name);
-		});
-		return randomCrewList;
+		return matchedTeamList;
 	}
 
 	makeRandomIdxList(length) {
