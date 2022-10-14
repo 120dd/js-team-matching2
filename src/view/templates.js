@@ -1,7 +1,7 @@
-import { SELECTORS } from "./constants.js";
+import { SELECTORS } from '../constants.js';
 
 export const TEMPLATES = {
-    HEADER: `
+	HEADER: `
     <header>
     <h1>우테코 크루와 팀 매칭 관리 보드</h1>
     <nav>
@@ -16,8 +16,8 @@ export const TEMPLATES = {
     </nav>
     </header>
     `,
-    MAIN: `<main id=${SELECTORS.MAIN}></main>`,
-    COURSE_SELECT_SECTION: `
+	MAIN: `<main id=${SELECTORS.MAIN}></main>`,
+	COURSE_SELECT_SECTION: `
     <section>
         <h3>크루를 관리할 코스를 선택해주세요</h3>
         <div>
@@ -29,7 +29,7 @@ export const TEMPLATES = {
     </section>
     <div id=${SELECTORS.COURSE_SELECT_DETAIL}></div>
     `,
-    COURSE_DETAIL_SECTION: (courseName, crewList) => `
+	COURSE_DETAIL_SECTION: (courseName, crewList) => `
     <section>
         <h3>${courseName} 크루 관리</h3>
         <form>
@@ -54,7 +54,10 @@ export const TEMPLATES = {
         </table>
     </section>
     `,
-    CREW_TABLE_ITEM: (crewList) => crewList.map((crewName, idx) => `
+	CREW_TABLE_ITEM: crewList =>
+		crewList
+			.map(
+				(crewName, idx) => `
     <tr>
         <td>${idx + 1}</td>
             <td>${crewName}</td>
@@ -62,8 +65,10 @@ export const TEMPLATES = {
                 <button data-idx=${idx} class="delete-crew-button">삭제</button>
             </td>
         </tr>
-    `).join(""),
-    MISSION_SELECT_SECTION: `
+    `,
+			)
+			.join(''),
+	MISSION_SELECT_SECTION: `
     <section>
         <h3>팀 매칭을 관리할 코스, 미션을 선택하세요.</h3>
         <form>
@@ -86,7 +91,7 @@ export const TEMPLATES = {
     </section>
     <div id=${SELECTORS.TEAM_MATCHING_DETAIL}></div>
     `,
-    TEAM_MATCHING_DETAIL: (courseName, missionName, crewList) => `
+	TEAM_MATCHING_DETAIL: (courseName, missionName, crewList) => `
     <section>
       <h3>${courseName} ${missionName} 미션의 팀 매칭</h3>
       <div>
@@ -105,10 +110,15 @@ export const TEMPLATES = {
       </div>
     </section>
     `,
-    MATCH_TEAM_LIST_ITEM: (teamLists) => teamLists.map((crew) => `
+	MATCH_TEAM_LIST_ITEM: teamLists =>
+		teamLists
+			.map(
+				crew => `
     <li>${crew}</li>
-    `).join(""),
-    MATCH_RESULT_SECTION: (courseName, missionName, resultList) => `
+    `,
+			)
+			.join(''),
+	MATCH_RESULT_SECTION: (courseName, missionName, resultList) => `
         <section>
       <h3>${courseName} ${missionName} 조회</h3>
       <p>팀이 매칭되었습니다.</p>
@@ -121,7 +131,12 @@ export const TEMPLATES = {
       </p>
     </section>
     `,
-    RESULT_LIST: (result) => result.map(list => `
-    <li>${list.join(",")}</li>
-    `).join("")
-}
+	RESULT_LIST: result =>
+		result
+			.map(
+				list => `
+    <li>${list.join(',')}</li>
+    `,
+			)
+			.join(''),
+};
