@@ -1,25 +1,25 @@
-import { getLocalStorage, setLocalStorage } from './store/localStorage.js';
+import { load, save } from './store/dataStore.js';
 
 export class TeamMatcher {
+	static #instance;
+
 	constructor() {
-		if (TeamMatcher.instance) {
-			return TeamMatcher.instance;
-		}
-		TeamMatcher.instance = this;
-		this.teamList = getLocalStorage('teamList') || {
+		if (TeamMatcher.#instance) return TeamMatcher.#instance;
+		this.teamList = load('teamList') || {
 			frontend: [],
 			backend: [],
 		};
+		TeamMatcher.#instance = this;
 	}
 
 	addCrew(courseName, crewName) {
 		this.teamList[courseName].push(crewName);
-		setLocalStorage('teamList', this.teamList);
+		save('teamList', this.teamList);
 	}
 
 	deleteCrew(courseName, idx) {
 		this.teamList[courseName].splice(idx, 1);
-		setLocalStorage('teamList', this.teamList);
+		save('teamList', this.teamList);
 	}
 
 	matchTeam(courseName, num) {

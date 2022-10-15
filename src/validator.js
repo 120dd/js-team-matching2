@@ -11,6 +11,6 @@ export function isDuplicatedName(name, teamList) {
 	return isDuplicate;
 }
 
-export function isCorrectNameLength(name) {
+export function isSmallThenMaxLength(name) {
 	return name.length > MAX_NAME_LENGTH;
 }

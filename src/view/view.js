@@ -7,16 +7,12 @@ export default class {
 	constructor() {
 		this.teamMatcher = new TeamMatcher();
 		this.currentCourse = '';
-		this.renderHeader();
-		this.renderMain();
+		this.renderInit();
 		this.registerHeaderEvent();
 	}
 
-	renderHeader() {
+	renderInit() {
 		$(SELECTORS.APP).innerHTML = TEMPLATES.HEADER;
-	}
-
-	renderMain() {
 		$(SELECTORS.APP).insertAdjacentHTML('beforeend', TEMPLATES.MAIN);
 	}
 

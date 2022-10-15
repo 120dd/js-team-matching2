@@ -1,7 +1,7 @@
 import View from './view/view.js';
 import { TeamMatcher } from './teamMatcher.js';
 import { ALERT_MSG, confirmMsg } from './constants.js';
-import { isCorrectNameLength, isDuplicatedName } from './validator.js';
+import { isDuplicatedName, isSmallThenMaxLength } from './validator.js';
 
 const MATCHING_MIN_NUM = 1;
 const MAX_NUM_DIVIDER = 2;
@@ -57,7 +57,7 @@ export class App {
 			this.view.alert('중복된 이름입니다');
 			return true;
 		}
-		if (isCorrectNameLength(crewName)) {
+		if (isSmallThenMaxLength(crewName)) {
 			this.view.alert(ALERT_MSG.MAX_NAME_OVER);
 			return true;
 		}
